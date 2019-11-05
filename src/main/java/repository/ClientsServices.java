@@ -6,6 +6,13 @@ import java.util.List;
 
 public interface ClientsServices {
 
-        List<Client> findAll();
-        Client findByInn(long id);
+        default List<Client> findAll() {
+            return  null;
+        }
+        default Client findByInn(long id){
+            return null;
+        }
+        default double getAmountSumByInn(long id) {
+            return 0;
+        }
 }

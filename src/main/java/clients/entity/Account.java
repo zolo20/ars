@@ -1,7 +1,8 @@
 package clients.entity;
 import javax.persistence.*;
 
-
+@Entity
+@Table(name = "account")
 public class Account {
 
     private double balance;
