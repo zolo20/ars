@@ -1,31 +1,23 @@
 package clients.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "clients")
 public class Client {
 
     @Id
-    @Column(name = "user_id")
-    private long userId;
-
     @Column()
     private long inn;
 
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Account> accounts;
+
     public Client() {}
 
-    public Client(long userId, long inn) {
-        this.userId = userId;
+    public Client(long inn) {
         this.inn = inn;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public long getInn() {
