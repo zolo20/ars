@@ -1,5 +1,6 @@
 package controller;
 
+import AOP.ExecutionTimeAnno;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import clients.entity.Client;
@@ -29,6 +30,7 @@ public class AmountController implements ClientsServices {
 
     @RequestMapping(value = "/{inn}", method = RequestMethod.GET)
     @ResponseBody
+    @ExecutionTimeAnno
     public double findById(@PathVariable long inn) {
         return clientsServices.getAmountSumByInn(inn);
     }

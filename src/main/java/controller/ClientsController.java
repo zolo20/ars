@@ -1,5 +1,6 @@
 package controller;
 
+import AOP.ExecutionTimeAnno;
 import clients.entity.Client;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +25,14 @@ public class ClientsController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
+    @ExecutionTimeAnno
     public List<Client> list() {
         return clientsServices.findAll();
     }
 
     @RequestMapping(value="/{inn}", method = RequestMethod.GET)
     @ResponseBody
+    @ExecutionTimeAnno
     public Client findById(@PathVariable long inn) {
         return clientsServices.findByInn(inn);
     }
