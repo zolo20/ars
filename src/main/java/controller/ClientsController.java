@@ -2,39 +2,39 @@ package controller;
 
 import AOP.ExecutionTimeAnno;
 import clients.entity.Client;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import repository.InterfaceDAO.ClientsServicesDAO;
+import service.ClientService;
 
-import repository.ClientsServices;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 
-@Controller
+@RestController
 @RequestMapping("clients")
 public class ClientsController {
 
-    private ClientsServices clientsServices;
+    private ClientService clientService;
 
-    public void setContactService(ClientsServices clientsServices) {
-        this.clientsServices= clientsServices;
+    @Autowired
+    public ClientsController(ClientService clientService) {
+        this.clientService = clientService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     @ExecutionTimeAnno
     public List<Client> list() {
-        return clientsServices.findAll();
+        return clientService.getAll();
     }
 
     @RequestMapping(value="/{inn}", method = RequestMethod.GET)
     @ResponseBody
     @ExecutionTimeAnno
     public Client findById(@PathVariable long inn) {
-        return clientsServices.findByInn(inn);
+        return clientService.getByInn(inn);
     }
+
 
 }
