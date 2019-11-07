@@ -1,13 +1,15 @@
-package repository;
+package sberBoot.repository;
 
-import clients.entity.Account;
+import sberBoot.entity.AccountEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import repository.InterfaceDAO.AccountServicesDAO;
+import org.springframework.stereotype.Repository;
+import sberBoot.repository.InterfaceDAO.AccountServicesDAO;
 
 import java.util.List;
 
+@Repository
 public class AccountServicesDAOImpl implements AccountServicesDAO {
 
 
@@ -19,20 +21,20 @@ public class AccountServicesDAOImpl implements AccountServicesDAO {
     }
 
     @Override
-    public void save(Account account) {
-        sessionFactory.getCurrentSession().save(account);
+    public void save(AccountEntity accountEntity) {
+        sessionFactory.getCurrentSession().save(accountEntity);
     }
 
     @Override
-    public List<Account> findAll() {
+    public List<AccountEntity> findAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("FROM Account").list();
+                .createQuery("FROM AccountEntity").list();
     }
 
     @Override
-    public List<Account> findByInn(long inn) {
+    public List<AccountEntity> findByInn(long inn) {
         Query query =  sessionFactory.getCurrentSession()
-                .createQuery("FROM Client WHERE inn = :inn");
+                .createQuery("FROM ClientEntity WHERE inn = :inn");
         query.setParameter("inn", inn);
         return   query.list();
     }
@@ -40,9 +42,9 @@ public class AccountServicesDAOImpl implements AccountServicesDAO {
     @Override
     public double getAmountSumByInn(long inn) {
         double sum = 0;
-        List<Account> accounts =  findByInn(inn);
-        for (Account account: accounts) {
-            sum+=account.getBalance();
+        List<AccountEntity> accountEntities =  findByInn(inn);
+        for (AccountEntity accountEntity : accountEntities) {
+            sum+= accountEntity.getBalance();
         }
         return sum;
     }

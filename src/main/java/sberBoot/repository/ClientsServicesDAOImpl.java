@@ -1,10 +1,10 @@
-package repository;
+package sberBoot.repository;
 
-import clients.entity.Client;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import repository.InterfaceDAO.ClientsServicesDAO;
+import sberBoot.entity.ClientEntity;
+import sberBoot.repository.InterfaceDAO.ClientsServicesDAO;
 
 import java.util.List;
 
@@ -18,22 +18,22 @@ public class ClientsServicesDAOImpl implements ClientsServicesDAO {
     }
 
     @Override
-    public void save(Client client) {
+    public void save(ClientEntity client) {
         sessionFactory.getCurrentSession().save(client);
     }
 
     @Override
-    public List<Client> findAll() {
+    public List<ClientEntity> findAll() {
         return sessionFactory.getCurrentSession()
-                .createQuery("FROM Client").list();
+                .createQuery("FROM ClientEntity").list();
     }
 
     @Override
-    public Client findByInn(long inn) {
+    public ClientEntity findByInn(long inn) {
         Query query =  sessionFactory.getCurrentSession()
-                .createQuery("FROM Client WHERE inn = :inn");
+                .createQuery("FROM ClientEntity WHERE inn = :inn");
         query.setParameter("inn", inn);
-        return (Client) query.uniqueResult();
+        return (ClientEntity) query.uniqueResult();
     }
 
 }

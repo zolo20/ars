@@ -1,4 +1,4 @@
-package Configuration;
+package sberBoot.сonfiguration;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class HibernateConfiguration {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(hibernateProperty.getConnection().getDriverClass());
-        dataSource.setUrl(hibernateProperty.);
-        dataSource.setUsername(hibernateProperty.);
+        dataSource.setUrl(hibernateProperty.getConnection().getUrl());
+        dataSource.setUsername(hibernateProperty.getConnection().getUsername());
         dataSource.setPassword(hibernateProperty.getConnection().getPassword());
         return dataSource;
     }
@@ -36,7 +36,9 @@ public class HibernateConfiguration {
         properties.put("hibernate.dialect", hibernateProperty.getDialect());
         properties.put("hibernate.show_sql", hibernateProperty.getShowSql());
         properties.put("hibernate.default_schema", hibernateProperty.getDefaultSchema());
-        properties.put("hibernate.enable_lazy_load_no_trans", hibernateProperty.getEnableLazyLoad());
+        properties.put("hibernate.enable_lazy_load_no_trans", hibernateProperty.getEnableLazyLoadNoTrans());
+        properties.put("hibernate.hbm2ddl.auto", hibernateProperty.getDdlAuto());
+
         return properties;
     }
 
@@ -44,7 +46,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setPackagesToScan("trainingneuralnetwork.entity");
+        sessionFactory.setPackagesToScan("sberBoot.entity");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

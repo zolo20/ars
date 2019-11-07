@@ -1,11 +1,15 @@
-package service;
+package sberBoot.service;
 
-import clients.entity.Account;
+import sberBoot.entity.AccountEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import repository.InterfaceDAO.AccountServicesDAO;
+import org.springframework.stereotype.Service;
+import sberBoot.entity.ClientEntity;
+import sberBoot.repository.InterfaceDAO.AccountServicesDAO;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Service
 public class AccountService {
 
     private AccountServicesDAO accountServicesDAO;
@@ -15,11 +19,11 @@ public class AccountService {
         this.accountServicesDAO = accountServicesDAO;
     }
 
-    public List<Account> getAll() {
+    public List<AccountEntity> getAll() {
         return accountServicesDAO.findAll();
     }
 
-    public List<Account> getByInn(long inn) {
+    public List<AccountEntity> getByInn(long inn) {
         return accountServicesDAO.findByInn(inn);
     }
 
@@ -27,4 +31,8 @@ public class AccountService {
         return accountServicesDAO.getAmountSumByInn(inn);
     }
 
+    public AccountEntity save(@NotNull AccountEntity accountEntity) {
+        accountServicesDAO.save(accountEntity);
+        return accountEntity;
+    }
 }

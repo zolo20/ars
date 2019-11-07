@@ -1,10 +1,11 @@
-package service;
+package sberBoot.service;
 
-import clients.entity.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.InterfaceDAO.ClientsServicesDAO;
+import sberBoot.entity.ClientEntity;
+import sberBoot.repository.InterfaceDAO.ClientsServicesDAO;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -17,12 +18,17 @@ public class ClientService {
         this.clientsServicesDAO = clientsServicesDAO;
     }
 
-    public List<Client> getAll() {
+    public List<ClientEntity> getAll() {
         return clientsServicesDAO.findAll();
     }
 
-    public Client getByInn(long inn) {
+    public ClientEntity getByInn(long inn) {
         return clientsServicesDAO.findByInn(inn);
+    }
+
+    public ClientEntity save(@NotNull ClientEntity clientEntity) {
+        clientsServicesDAO.save(clientEntity);
+        return clientEntity;
     }
 
 }

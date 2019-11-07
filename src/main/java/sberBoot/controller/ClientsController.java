@@ -1,18 +1,15 @@
-package controller;
+package sberBoot.controller;
 
-import AOP.ExecutionTimeAnno;
-import clients.entity.Client;
+import sberBoot.AOP.ExecutionTimeAnno;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import repository.InterfaceDAO.ClientsServicesDAO;
-import service.ClientService;
-
+import sberBoot.entity.ClientEntity;
+import sberBoot.service.ClientService;
 
 import java.util.List;
 
 
 @RestController
-@RequestMapping("clients")
 public class ClientsController {
 
     private ClientService clientService;
@@ -22,17 +19,15 @@ public class ClientsController {
         this.clientService = clientService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value="clients", method = RequestMethod.GET)
     @ExecutionTimeAnno
-    public List<Client> list() {
+    public List<ClientEntity> list() {
         return clientService.getAll();
     }
 
-    @RequestMapping(value="/{inn}", method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value="clients/{inn}", method = RequestMethod.GET)
     @ExecutionTimeAnno
-    public Client findById(@PathVariable long inn) {
+    public ClientEntity findById(@PathVariable long inn) {
         return clientService.getByInn(inn);
     }
 

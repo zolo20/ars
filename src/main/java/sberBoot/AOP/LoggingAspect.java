@@ -1,4 +1,4 @@
-package AOP;
+package sberBoot.AOP;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -15,7 +15,7 @@ public class LoggingAspect {
 
         private Logger logger = Logger.getLogger(LoggingAspect.class.getName());
 
-        @Pointcut("within(controller.*)")
+        @Pointcut("within(sberBoot.controller.*)")
         public void processingMethod() {
         };
 
